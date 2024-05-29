@@ -2,6 +2,7 @@
 
 import useAnimateOnScroll from './components/useAnimateOnScroll';
 import Section from './components/Section';
+import Link from "next/link";
 
 export default function Home() {
 	useAnimateOnScroll();
@@ -21,10 +22,11 @@ export default function Home() {
 
 				<div className="mt-10 sm:flex sm:justify-center lg:justify-start">
 					<div className="rounded-md shadow">
-						<a href="#"
-						   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
-							Get started
-						</a>
+						<Link href="/about">
+							<div className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10">
+								Get started
+							</div>
+						</Link>
 					</div>
 					<div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
 						<a href="#"
