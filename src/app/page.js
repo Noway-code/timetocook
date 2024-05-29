@@ -7,8 +7,8 @@ export default function Home() {
 	useAnimateOnScroll();
 
 	return (
-		<div className="bg-gray-800 mx-auto min-h-screen flex flex-col items-start justify-center space-y-10 px-10">
-			<Section className="h-screen flex flex-col justify-center" delay={500}>
+		<div className="bg-gray-700 mx-auto min-h-screen flex flex-col items-start justify-center space-y-10 px-10">
+			<Section className="h-screen flex flex-col justify-center" delay={200}>
 				<h1 className="font-black text-6xl">
 					Hells to the Yeah
 				</h1>
@@ -35,7 +35,7 @@ export default function Home() {
 				</div>
 			</Section>
 
-			<Section className="h-screen flex flex-col justify-center">
+			<Section className="h-screen flex flex-col justify-center" delay={400}>
 				<h2 className="font-black text-5xl">
 					More Content Here
 				</h2>
@@ -44,7 +44,7 @@ export default function Home() {
 				</p>
 			</Section>
 
-			<Section className="h-screen flex flex-col justify-center">
+			<Section className="h-screen flex flex-col justify-center" delay={600}>
 				<h2 className="font-black text-5xl">
 					Even More Content
 				</h2>
@@ -53,7 +53,7 @@ export default function Home() {
 				</p>
 			</Section>
 
-			<Section className="h-screen flex flex-col justify-center">
+			<Section className="h-screen flex flex-col justify-center" delay={800}>
 				<h2 className="font-black text-5xl">
 					Final Section
 				</h2>
