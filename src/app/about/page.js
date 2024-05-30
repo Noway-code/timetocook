@@ -25,7 +25,7 @@ export default function Page() {
 					From all sorts of data sources.
 				</p>
 			</Section>
-			<Section>
+			<Section className="w-full">
 				<div>
 					<h1>Welcome to My Portfolio</h1>
 					<GitHubFeed />
