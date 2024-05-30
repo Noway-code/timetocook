@@ -2,6 +2,7 @@
 
 import useAnimateOnScroll from '../components/useAnimateOnScroll';
 import Section from '../components/Section';
+import GitHubFeed from "../components/GithubFeed";
 
 export default function Page() {
 	useAnimateOnScroll();
@@ -23,6 +24,12 @@ export default function Page() {
 					Medium Priority: A full activity log including the git that pulls from places like my resume and linkedin that constructs a full activity log.
 					From all sorts of data sources.
 				</p>
+			</Section>
+			<Section>
+				<div>
+					<h1>Welcome to My Portfolio</h1>
+					<GitHubFeed />
+				</div>
 			</Section>
 		</div>
 	);
