@@ -13,6 +13,7 @@ const getGithubData = async () => {
 	const username = 'Noway-code';
 
 	if (!token) {
+		console.error('GitHub token is not defined');
 		throw new Error('GitHub token is not defined');
 	}
 
@@ -30,7 +31,7 @@ const getGithubData = async () => {
 	try {
 		const response = await fetch(`${GITHUB_API_URL}/users/${username}/events`, { headers });
 		if (!response.ok) {
-			throw new Error('Network response was not ok');
+			throw new Error(`Network response was not ok: ${response.statusText}`);
 		}
 		const data = await response.json();
 		// Update cache
@@ -38,6 +39,7 @@ const getGithubData = async () => {
 			timestamp: new Date().getTime(),
 			data,
 		};
+		console.log('Fetched new data from GitHub');
 		return data;
 	} catch (error) {
 		console.error('Error fetching GitHub data:', error);
