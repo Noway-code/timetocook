@@ -13,6 +13,7 @@
     "es6-promise": "^4.2.8",
     "fs": "^0.0.1-security",
     "isomorphic-fetch": "^3.0.0",
+    "marked": "^12.0.2",
     "next": "14.2.3",
     "node-fetch": "^3.3.2",
     "react": "^18",
