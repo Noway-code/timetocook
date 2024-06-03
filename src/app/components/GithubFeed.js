@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import getGithubData from '../../services/github';
-import 'tailwindcss/tailwind.css';
 
 const GitHubFeed = () => {
 	const [events, setEvents] = useState([]);
