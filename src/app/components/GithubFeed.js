@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import getGithubData from '../../services/github';
+import 'tailwindcss/tailwind.css';
 
 const GitHubFeed = () => {
 	const [events, setEvents] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [displayCount, setDisplayCount] = useState(5); // Initial number of events to display
-	const [selectedEvent, setSelectedEvent] = useState(null); // State to store the selected event
+	const [selectedEventId, setSelectedEventId] = useState(null); // State to store the selected event ID
 	const [readmeContent, setReadmeContent] = useState(''); // State to store the README content
 
 	useEffect(() => {
@@ -49,9 +53,9 @@ const GitHubFeed = () => {
 		}
 	};
 
-	const handleEventClick = (event) => {
-		setSelectedEvent(event);
-		fetchReadme(event.repo.name);
+	const handleEventClick = async (event) => {
+		setSelectedEventId(event.id);
+		await fetchReadme(event.repo.name);
 	};
 
 	if (loading) {
@@ -72,17 +76,39 @@ const GitHubFeed = () => {
 					<>
 						<ul className="space-y-4 w-full">
 							{events.slice(0, displayCount).map((event) => (
-								event.payload?.commits?.map((commit) => (
-									<li
-										key={commit.sha}
-										onClick={() => handleEventClick(event)}
-										className="cursor-pointer bg-white p-4 rounded-lg shadow-md w-full"
-									>
-										<p className="font-semibold text-gray-700">{event.type} in {event.repo.name}</p>
-										<p className="text-sm text-gray-600">{new Date(event.created_at).toLocaleString()}</p>
-										<p className="text-sm text-gray-800 mt-2">Commit message: {commit.message}</p>
-									</li>
-								))
+								<>
+									{event.payload?.commits?.map((commit) => (
+										<li
+											key={commit.sha}
+											onClick={() => handleEventClick(event)}
+											className="cursor-pointer bg-white p-4 rounded-lg shadow-md w-full"
+										>
+											<p className="font-semibold text-gray-700">{event.type} in {event.repo.name}</p>
+											<p className="text-sm text-gray-600">{new Date(event.created_at).toLocaleString()}</p>
+											<p className="text-sm text-gray-800 mt-2">Commit message: {commit.message}</p>
+										</li>
+									))}
+									{selectedEventId === event.id && (
+										<li key={`readme-${event.id}`} className="bg-gray-100 p-4 rounded-lg shadow-md w-full">
+											<h3 className="text-xl font-semibold mb-4">README for {event.repo.name}</h3>
+											<div className="prose bg-gray-800 text-gray-300 p-4 rounded-lg shadow-md overflow-x-auto">
+												<ReactMarkdown
+													remarkPlugins={[remarkGfm]}
+													components={{
+														h1: ({node, ...props}) => <h1 className="text-2xl font-bold" {...props} />,
+														h2: ({node, ...props}) => <h2 className="text-xl font-semibold" {...props} />,
+														h3: ({node, ...props}) => <h3 className="text-lg font-semibold" {...props} />,
+														p: ({node, ...props}) => <p className="my-2" {...props} />,
+														li: ({node, ...props}) => <li className="ml-4 list-disc" {...props} />,
+														a: ({node, ...props}) => <a className="text-blue-400 hover:underline" {...props} />,
+													}}
+												>
+													{readmeContent}
+												</ReactMarkdown>
+											</div>
+										</li>
+									)}
+								</>
 							))}
 						</ul>
 						{displayCount < events.length && (
@@ -97,14 +123,7 @@ const GitHubFeed = () => {
 			</div>
 			<div className="relative">
 				<div className="absolute left-0 top-0 h-full border-l-2 border-gray-300"></div>
-				{selectedEvent && (
-					<div className="ml-4 p-4">
-						<h2 className="text-2xl font-bold mb-4">README for {selectedEvent.repo.name}</h2>
-						<pre className="bg-gray-800 text-gray-300 p-4 rounded-lg shadow-md overflow-x-auto">
-                        {readmeContent}
-            </pre>
-					</div>
-				)}
+
 			</div>
 		</div>
 	);
