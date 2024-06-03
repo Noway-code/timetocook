@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import getGithubData from '../../services/github';
 import 'tailwindcss/tailwind.css';
 
@@ -12,6 +14,7 @@ const GitHubFeed = () => {
 	const [displayCount, setDisplayCount] = useState(5); // Initial number of events to display
 	const [selectedEventId, setSelectedEventId] = useState(null); // State to store the selected event ID
 	const [readmeContent, setReadmeContent] = useState(''); // State to store the README content
+	const [readmeCache, setReadmeCache] = useState({}); // State to store the README cache
 
 	useEffect(() => {
 		const fetchEvents = async () => {
@@ -44,6 +47,7 @@ const GitHubFeed = () => {
 			});
 			if (res.ok) {
 				const content = await res.text();
+				setReadmeCache(prevCache => ({ ...prevCache, [repoFullName]: content }));
 				setReadmeContent(content);
 			} else {
 				setReadmeContent('README not found.');
@@ -55,7 +59,13 @@ const GitHubFeed = () => {
 
 	const handleEventClick = async (event) => {
 		setSelectedEventId(event.id);
-		await fetchReadme(event.repo.name);
+		const repoFullName = event.repo.name;
+
+		if (readmeCache[repoFullName]) {
+			setReadmeContent(readmeCache[repoFullName]);
+		} else {
+			await fetchReadme(repoFullName);
+		}
 	};
 
 	if (loading) {
@@ -76,31 +86,50 @@ const GitHubFeed = () => {
 					<>
 						<ul className="space-y-4 w-full">
 							{events.slice(0, displayCount).map((event) => (
-								<>
+								<div key={event.id}>
 									{event.payload?.commits?.map((commit) => (
 										<li
 											key={commit.sha}
 											onClick={() => handleEventClick(event)}
-											className="cursor-pointer bg-white p-4 rounded-lg shadow-md w-full"
+											className={`cursor-pointer bg-white p-4 shadow-md w-full ${
+												selectedEventId === event.id ? 'rounded-t-lg' : 'rounded-lg'
+											}`}
 										>
 											<p className="font-semibold text-gray-700">{event.type} in {event.repo.name}</p>
 											<p className="text-sm text-gray-600">{new Date(event.created_at).toLocaleString()}</p>
-											<p className="text-sm text-gray-800 mt-2">Commit message: {commit.message}</p>
+											<p className="text-md text-gray-800 mt-2">Commit message: {commit.message}</p>
 										</li>
 									))}
 									{selectedEventId === event.id && (
-										<li key={`readme-${event.id}`} className="bg-gray-100 p-4 rounded-lg shadow-md w-full">
+										<li key={`readme-${event.id}`} className="border-2 bg-gray-600 p-4 shadow-md w-full rounded-b-lg transition-opacity duration-500 ease-in-out opacity-100 animate-fadeIn">
 											<h3 className="text-xl font-semibold mb-4">README for {event.repo.name}</h3>
-											<div className="prose bg-gray-800 text-gray-300 p-4 rounded-lg shadow-md overflow-x-auto">
+											<div className="prose bg-gray-800 text-gray-300 p-4 rounded-b-lg shadow-md overflow-x-auto">
 												<ReactMarkdown
 													remarkPlugins={[remarkGfm]}
 													components={{
-														h1: ({node, ...props}) => <h1 className="text-2xl font-bold" {...props} />,
-														h2: ({node, ...props}) => <h2 className="text-xl font-semibold" {...props} />,
-														h3: ({node, ...props}) => <h3 className="text-lg font-semibold" {...props} />,
-														p: ({node, ...props}) => <p className="my-2" {...props} />,
-														li: ({node, ...props}) => <li className="ml-4 list-disc" {...props} />,
-														a: ({node, ...props}) => <a className="text-blue-400 hover:underline" {...props} />,
+														code({ node, inline, className, children, ...props }) {
+															const match = /language-(\w+)/.exec(className || '');
+															return !inline && match ? (
+																<SyntaxHighlighter
+																	style={atomDark}
+																	language={match[1]}
+																	PreTag="div"
+																	{...props}
+																>
+																	{String(children).replace(/\n$/, '')}
+																</SyntaxHighlighter>
+															) : (
+																<code className={className} {...props}>
+																	{children}
+																</code>
+															);
+														},
+														h1: ({ node, ...props }) => <h1 className="text-2xl font-bold" {...props} />,
+														h2: ({ node, ...props }) => <h2 className="text-xl font-semibold" {...props} />,
+														h3: ({ node, ...props }) => <h3 className="text-lg font-semibold" {...props} />,
+														p: ({ node, ...props }) => <p className="my-2" {...props} />,
+														li: ({ node, ...props }) => <li className="ml-4 list-disc" {...props} />,
+														a: ({ node, ...props }) => <a className="text-blue-400 hover:underline" {...props} />,
 													}}
 												>
 													{readmeContent}
@@ -108,7 +137,7 @@ const GitHubFeed = () => {
 											</div>
 										</li>
 									)}
-								</>
+								</div>
 							))}
 						</ul>
 						{displayCount < events.length && (
@@ -123,7 +152,6 @@ const GitHubFeed = () => {
 			</div>
 			<div className="relative">
 				<div className="absolute left-0 top-0 h-full border-l-2 border-gray-300"></div>
-
 			</div>
 		</div>
 	);
