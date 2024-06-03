@@ -2,6 +2,7 @@
   "name": "nextportfolio",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.19",
     "dotenv": "^16.4.5",
     "es6-promise": "^4.2.8",
     "fs": "^0.0.1-security",
@@ -24,6 +24,7 @@
     "remark-gfm": "^4.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.19",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8.4.38",
