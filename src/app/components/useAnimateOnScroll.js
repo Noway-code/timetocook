@@ -11,13 +11,14 @@ const useAnimateOnScroll = () => {
 						replacer.classList.remove(key);
 						replacer.classList.add(replaceClasses[key]);
 					});
-					observer.unobserve(replacer); // Stop observing once animated
+					observer.unobserve(replacer);
 				}
 			});
 		};
 
 		const observer = new IntersectionObserver(handleIntersection, {
 			threshold: 0.1,
+			rootMargin: '0px 0px -10% 0px',
 		});
 
 		const replacers = document.querySelectorAll('[data-replace]');

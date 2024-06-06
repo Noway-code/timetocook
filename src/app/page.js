@@ -4,6 +4,7 @@ import useAnimateOnScroll from './components/useAnimateOnScroll';
 import Section from './components/Section';
 import Link from "next/link";
 import {useState} from "react";
+import { Link as ScrollLink, Element } from 'react-scroll';
 
 export default function Home() {
 	useAnimateOnScroll();
@@ -17,9 +18,10 @@ export default function Home() {
 		setIsHovered(false);
 	};
 
-	return (<div className="mx-auto flex min-h-screen flex-col items-start justify-center bg-gray-700 px-10 space-y-10">
-				<Section className="flex h-screen flex-col items-center justify-center" delay={200}>
-			<h1 className="text-7xl font-black">
+	return (
+		<div className="mx-auto flex min-h-screen flex-col items-start justify-center bg-gray-700 px-10 space-y-10">
+			<Section className="flex h-screen flex-col items-center justify-center" delay={200}>
+				<h1 className="text-7xl font-black">
 					Hello, i&apos;m Camilo
 				</h1>
 				<div>
@@ -27,19 +29,16 @@ export default function Home() {
 						I&apos;m a software engineer who loves building cool stuff, from web apps to biotech. Right now,
 						I&apos;m juggling a bunch of personal projects and working as a software developer intern at{' '}
 						<Link href="/about">
-						<span
-							onMouseEnter={handleMouseEnter}
-							onMouseLeave={handleMouseLeave}
-							className={`inline-block p-1 rounded-md cursor-pointer font-semibold ${isHovered ? 'bg-red-600 text-white' : 'bg-white text-red-500'}`}>
-                            Thermo Fisher
-            <span className={`font-light ${isHovered ? 'text-white' : 'text-black'}`}> Scientific</span>
-                        </span>
-							. I&apos;m also a student at UCF, always on the lookout for new ways to learn and level up my skills.
+							<span
+								onMouseEnter={handleMouseEnter}
+								onMouseLeave={handleMouseLeave}
+								className={`inline-block p-1 rounded-md cursor-pointer font-semibold ${isHovered ? 'bg-red-600 text-white' : 'bg-white text-red-500'}`}>
+								Thermo Fisher
+								<span className={`font-light ${isHovered ? 'text-white' : 'text-black'}`}> Scientific</span>
+							</span>
 						</Link>.
 					</p>
 				</div>
-
-
 				<div className="mt-10 sm:flex sm:justify-center lg:justify-start">
 					<div className="rounded-md shadow">
 						<Link href="/about">
@@ -50,24 +49,26 @@ export default function Home() {
 						</Link>
 					</div>
 					<div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-						<a href="#"
-						   className="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium leading-6 text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:shadow-outline-indigo focus:border-indigo-300 focus:outline-none md:px-10 md:py-4 md:text-lg">
-							Live demo
-						</a>
+						<ScrollLink to="resume-section" smooth={true} duration={1000}>
+							<div
+								className="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium leading-6 text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:shadow-outline-indigo focus:border-indigo-300 focus:outline-none md:px-10 md:py-4 md:text-lg cursor-pointer">
+								View Resume
+							</div>
+						</ScrollLink>
 					</div>
 				</div>
 			</Section>
 
-			<Section className="flex h-screen flex-col justify-center" delay={400}>
-				<h2 className="text-5xl font-black">
-					More Content Here
-				</h2>
-				<p className="text-lg text-gray-500">
-					Additional lorem ipsum text to fill out the page and test the scrolling animation effect. Lorem ipsum dolor sit amet, consectetur
-					adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-					exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-				</p>
-			</Section>
+			<Element name="resume-section">
+				<Section className="flex h-screen flex-col justify-center" delay={400}>
+					<h2 className="text-5xl font-black">
+						Resume Here
+					</h2>
+					<p className="text-lg text-gray-500">
+						Resume info.
+					</p>
+				</Section>
+			</Element>
 
 			<Section className="flex h-screen flex-col justify-center" delay={600}>
 				<h2 className="text-5xl font-black">
@@ -88,5 +89,6 @@ export default function Home() {
 					ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit.
 				</p>
 			</Section>
-	</div>);
+		</div>
+	);
 }
