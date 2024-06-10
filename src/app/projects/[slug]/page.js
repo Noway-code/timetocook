@@ -7,9 +7,11 @@ import html from 'remark-html';
 export async function generateStaticParams() {
 	const files = fs.readdirSync(path.join(process.cwd(), 'src/app/projects'));
 
-	return files.map((filename) => ({
-		slug: filename.replace('.md', ''),
-	}));
+	return files
+		.filter((filename) => path.extname(filename) === '.md') // Ensure only Markdown files
+		.map((filename) => ({
+			slug: filename.replace('.md', ''),
+		}));
 }
 
 export default async function Project({ params }) {
@@ -24,7 +26,7 @@ export default async function Project({ params }) {
 	return (
 		<div className="bg-gray-900 min-h-screen text-white p-4">
 			<h1 className="text-4xl font-bold">{frontMatter.title}</h1>
-			<p className="text-gray-400">{frontMatter.date}</p>
+			<p className="text-gray-400">{new Date(frontMatter.date).toLocaleDateString()}</p>
 			<div className="mt-4" dangerouslySetInnerHTML={{ __html: contentHtml }} />
 		</div>
 	);

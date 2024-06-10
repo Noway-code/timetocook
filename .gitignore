@@ -37,3 +37,4 @@ next-env.d.ts
 /.env
 /src/app/projects/.obsidian/
 /src/app/projects/templates/template post.md
+/src/app/projects/templates/
