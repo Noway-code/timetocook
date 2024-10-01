@@ -21,7 +21,7 @@ const projects = [
 		id: 4,
 		title: 'Portfolio',
 		description: "You're looking at it! This portfolio showcases my projects & experience, and works as my personal blog. Built with Next.js, Tailwind CSS, and Vercel.",
-		link: 'https://github.com/parkerblume/TownTrekkr',
+		link: 'https://github.com/Noway-code/timetocook',
 	},
 	{
 		id: 5,
