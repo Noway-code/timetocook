@@ -1,94 +1,189 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 import useAnimateOnScroll from './components/useAnimateOnScroll';
 import Section from './components/Section';
 import Link from "next/link";
-import { Link as ScrollLink, Element } from 'react-scroll';
+import {Element, Link as ScrollLink} from 'react-scroll';
 
 export default function Home() {
 	useAnimateOnScroll();
-	const [isHovered, setIsHovered] = useState(false);
 
-	const handleMouseEnter = () => {
-		setIsHovered(true);
-	};
+	// State to hold the scroll position
+	const [scrollY, setScrollY] = useState(0);
 
-	const handleMouseLeave = () => {
-		setIsHovered(false);
-	};
+	// State to hold the content height
+	const [contentHeight, setContentHeight] = useState(0);
+
+	// Ref to hold the main content container
+	const contentRef = useRef(null);
+
+	// Effect to update scroll position
+	useEffect(() => {
+		const handleScroll = () => {
+			setScrollY(window.scrollY);
+		};
+
+		// Add event listener
+		window.addEventListener("scroll", handleScroll);
+
+		// Clean up
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
+	// Use useLayoutEffect to measure content height after component mounts
+	useLayoutEffect(() => {
+		if (contentRef.current) {
+			setContentHeight(contentRef.current.scrollHeight);
+		}
+	}, []);
+
+	// Handle window resize to update content height
+	useEffect(() => {
+		const handleResize = () => {
+			if (contentRef.current) {
+				setContentHeight(contentRef.current.scrollHeight);
+			}
+		};
+
+		window.addEventListener("resize", handleResize);
+
+		// Clean up
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
+	}, []);
+
+	// Calculate background position
+	const backgroundPositionY = scrollY * 0.5; // Adjust the multiplier to control parallax speed
 
 	return (
-		<div className="mx-auto flex min-h-screen flex-col items-start justify-center bg-gray-700 px-10 space-y-10 w-full">
-			<Section className="flex h-screen flex-col items-center justify-center w-full" delay={200}>
-				<h1 className="text-7xl font-black">Hello, i&apos;m Camilo</h1>
-				<div>
-					<p className="text-2xl text-gray-200">
+		<div className="relative w-full overflow-hidden">
+			{/* Parallax Background */}
+			<div
+				className="absolute top-0 left-0 w-full bg-gradient-to-b from-gray-800 via-indigo-950 to-blue-950"
+				style={{
+					height: `${contentHeight}px`,
+					transform: `translateY(-${backgroundPositionY}px)`,
+					willChange: 'transform',
+				}}
+			/>
+
+			{/* Main Content */}
+			<div
+				className="relative z-10 flex flex-col items-stretch text-white"
+				ref={contentRef}
+			>
+				{/* Hero Section */}
+				<Section
+					className="flex min-h-screen flex-col items-center justify-center w-full text-center"
+					delay={200}
+				>
+					<h1 className="text-7xl font-extrabold mb-6">Hello, I&apos;m Camilo</h1>
+					<p className="text-2xl max-w-3xl">
 						I&apos;m a software engineer who loves building cool stuff, from web apps to biotech. Right now,
 						I&apos;m juggling a bunch of personal projects and working as a software developer intern at{' '}
-						<Link href="/activity">
-              <span
-	              onMouseEnter={handleMouseEnter}
-	              onMouseLeave={handleMouseLeave}
-	              className={`inline-block p-1 rounded-md cursor-pointer font-semibold ${isHovered ? 'bg-red-600 text-white' : 'bg-white text-red-500'}`}
-              >
-                Thermo Fisher
-                <span className={`font-light ${isHovered ? 'text-white' : 'text-black'}`}> Scientific</span>
+						<Link
+							href="/activity"
+							className="inline-block p-1 rounded-md cursor-pointer font-semibold bg-white text-red-500 hover:bg-red-600 hover:text-white transition-colors duration-300"
+						>
+							Thermo Fisher
+							<span className="font-light text-black hover:text-white">
+                {' '}
+								Scientific
               </span>
-						</Link>.
-					</p>
-				</div>
-				<div className="mt-10 sm:flex sm:justify-center lg:justify-start">
-					<div className="rounded-md shadow">
-						<Link href="/projects">
-							<div
-								className="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium leading-6 text-white transition duration-150 ease-in-out hover:bg-indigo-500 focus:shadow-outline-indigo focus:border-indigo-700 focus:outline-none md:px-10 md:py-4 md:text-lg"
-							>
-								Get started
-							</div>
 						</Link>
-					</div>
-					<div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-						<ScrollLink to="resume-section" smooth={true} duration={1000}>
-							<div
-								className="flex w-full items-center justify-center rounded-md border border-transparent bg-white px-8 py-3 text-base font-medium leading-6 text-indigo-600 transition duration-150 ease-in-out hover:text-indigo-500 focus:shadow-outline-indigo focus:border-indigo-300 focus:outline-none md:px-10 md:py-4 md:text-lg cursor-pointer"
-							>
-								View Resume
-							</div>
+						.
+					</p>
+					<div className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+						<Link
+							href="/projects"
+							className="flex items-center justify-center rounded-md bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-500 transition-colors duration-300"
+						>
+							Get Started
+						</Link>
+						<ScrollLink
+							to="resume-projects-section"
+							smooth={true}
+							duration={1000}
+							className="flex items-center justify-center rounded-md bg-white px-8 py-3 text-base font-medium text-indigo-600 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
+						>
+							View Resume & Projects
 						</ScrollLink>
 					</div>
-				</div>
-			</Section>
+				</Section>
 
-			<Element name="resume-section">
-				<Section id="resume" className="flex flex-col justify-center w-full" delay={400}>
-					<h2 className="text-5xl font-black">Resume Here</h2>
-					<div className="w-full mt-4 flex justify-center">
-						<iframe
-							src="https://docs.google.com/document/d/e/2PACX-1vTz8qZz-uQXxs8WYNMsEsx6H04kWQd-2pc4u8YoChS3tAG64EPQ_pcKO6k345AU1Q/pub?embedded=true"
-							className="border border-gray-300 w-full h-screen"
-							style={{ minWidth: '800px' }}
-							title="Resume"
-						/>
+				{/* Resume and Projects Section Side by Side */}
+				<Element name="resume-projects-section">
+					<Section
+						id="resume-projects"
+						className="flex flex-col lg:flex-row w-full pb-30 mb-30"
+						delay={400}
+					>
+						{/* Resume Section */}
+						<div className="flex flex-col justify-center w-full lg:w-1/2 p-4">
+							<h2 className="text-5xl font-extrabold text-center mb-20">
+								My Resume
+							</h2>
+							<div className="mt-4 flex justify-center">
+								<iframe
+									src="https://docs.google.com/document/d/e/2PACX-1vQvk_XUpa-kDAMopAib8GnMKcpiC8jIXq8K-8hFTWangCKnbfaKG30KtNwW-CzXww/pub?embedded=true"
+									className="border border-gray-300 w-full h-screen"
+									title="Resume"
+								/>
+							</div>
+						</div>
+
+						{/* Projects and Experience Section */}
+						<div className="flex flex-col justify-center w-full lg:w-1/2 p-4">
+							<h2 className="text-5xl font-extrabold text-center mb-6">
+								Projects and Experience
+							</h2>
+							<p className="text-lg mx-auto">
+								Here&apos;s a showcase of my latest projects and experiences. From
+								developing web applications to exploring biotech innovations, I&apos;m
+								always eager to tackle new challenges and learn new technologies.
+							</p>
+							{/* Add more content here, such as project cards or experience lists */}
+						</div>
+					</Section>
+				</Element>
+
+				{/* Contact Section */}
+				<Section
+					className="flex min-h-screen flex-col justify-center w-full text-center mt-80"
+					delay={800}
+				>
+					<h2 className="text-5xl font-extrabold mb-6">Get In Touch</h2>
+					<p className="text-lg max-w-3xl mx-auto mb-8">
+						I&apos;m always open to discussing new opportunities, collaborations, or
+						just chatting about tech and science. Feel free to reach out!
+					</p>
+					<div className="flex justify-center space-x-6">
+						{/* Replace '#' with your actual profile links */}
+						<a
+							href="#"
+							className="text-indigo-400 hover:text-indigo-600 transition-colors duration-300"
+						>
+							LinkedIn
+						</a>
+						<a
+							href="#"
+							className="text-indigo-400 hover:text-indigo-600 transition-colors duration-300"
+						>
+							GitHub
+						</a>
+						<a
+							href="mailto:youremail@example.com"
+							className="text-indigo-400 hover:text-indigo-600 transition-colors duration-300"
+						>
+							Email
+						</a>
 					</div>
 				</Section>
-			</Element>
-
-			<Section className="flex h-screen flex-col justify-center w-full" delay={600}>
-				<h2 className="text-5xl font-black">Even More Content</h2>
-				<p className="text-lg text-gray-500">
-					More placeholder text to ensure that the page has enough content to scroll and trigger the animation effect. Lorem ipsum dolor sit
-					amet, consectetur adipiscing elit. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-				</p>
-			</Section>
-
-			<Section className="flex h-screen flex-col justify-center w-full" delay={800}>
-				<h2 className="text-5xl font-black">Final Section</h2>
-				<p className="text-lg text-gray-500">
-					The final section with additional text to ensure the scrolling animation effect can be observed as you move down the page. Lorem
-					ipsum dolor sit amet, consectetur adipiscing elit. Nullam id dolor id nibh ultricies vehicula ut id elit.
-				</p>
-			</Section>
+			</div>
 		</div>
 	);
 }

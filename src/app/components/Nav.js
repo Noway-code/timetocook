@@ -11,7 +11,7 @@ const Nav = () => {
 				</li>
 				<li>
 					<Link href="/projects">
-						Projects
+						Blog
 					</Link>
 				</li>
 				<li>

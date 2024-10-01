@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
+import {atomDark} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import getGithubData from '../../services/github';
 
 const GitHubFeed = () => {
@@ -34,18 +34,18 @@ const GitHubFeed = () => {
 	}, []);
 
 	const handleLoadMore = () => {
-		setDisplayCount(prevCount => prevCount + 5); // Load 5 more events
+		setDisplayCount((prevCount) => prevCount + 5); // Load 5 more events
 	};
 
 	const fetchReadme = async (repoFullName) => {
 		const [owner, repo] = repoFullName.split('/');
 		try {
 			const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`, {
-				headers: { Accept: 'application/vnd.github.v3.raw' },
+				headers: {Accept: 'application/vnd.github.v3.raw'},
 			});
 			if (res.ok) {
 				const content = await res.text();
-				setReadmeCache(prevCache => ({ ...prevCache, [repoFullName]: content }));
+				setReadmeCache((prevCache) => ({...prevCache, [repoFullName]: content}));
 				setReadmeContent(content);
 			} else {
 				setReadmeContent('README not found.');
@@ -56,13 +56,19 @@ const GitHubFeed = () => {
 	};
 
 	const handleEventClick = async (event) => {
-		setSelectedEventId(event.id);
-		const repoFullName = event.repo.name;
-
-		if (readmeCache[repoFullName]) {
-			setReadmeContent(readmeCache[repoFullName]);
+		if (selectedEventId === event.id) {
+			// If the same event is clicked again, deselect it
+			setSelectedEventId(null);
+			setReadmeContent('');
 		} else {
-			await fetchReadme(repoFullName);
+			setSelectedEventId(event.id);
+			const repoFullName = event.repo.name;
+
+			if (readmeCache[repoFullName]) {
+				setReadmeContent(readmeCache[repoFullName]);
+			} else {
+				await fetchReadme(repoFullName);
+			}
 		}
 	};
 
@@ -75,7 +81,7 @@ const GitHubFeed = () => {
 	}
 
 	return (
-		<div className="grid grid-cols-2 gap-4">
+		<div className="grid grid-cols-1 gap-4">
 			<div className="space-y-4">
 				<h2 className="text-2xl font-bold mb-4">Latest GitHub Activity</h2>
 				{events.length === 0 ? (
@@ -93,19 +99,30 @@ const GitHubFeed = () => {
 												selectedEventId === event.id ? 'rounded-t-lg' : 'rounded-lg'
 											}`}
 										>
-											<p className="font-semibold text-gray-700">{event.type} in {event.repo.name}</p>
-											<p className="text-sm text-gray-600">{new Date(event.created_at).toLocaleString()}</p>
-											<p className="text-md text-gray-800 mt-2">Commit message: {commit.message}</p>
+											<p className="font-semibold text-gray-700">
+												{event.type} in {event.repo.name}
+											</p>
+											<p className="text-sm text-gray-600">
+												{new Date(event.created_at).toLocaleString()}
+											</p>
+											<p className="text-md text-gray-800 mt-2">
+												Commit message: {commit.message}
+											</p>
 										</li>
 									))}
-									{selectedEventId === event.id && (
-										<li key={`readme-${event.id}`} className="border-2 bg-gray-600 p-4 shadow-md w-full rounded-b-lg transition-opacity duration-500 ease-in-out opacity-100 animate-fadeIn">
-											<h3 className="text-xl font-semibold mb-4">README for {event.repo.name}</h3>
+									{selectedEventId === event.id && readmeContent && (
+										<li
+											key={`readme-${event.id}`}
+											className="border-2 bg-gray-600 p-4 shadow-md w-full rounded-b-lg transition-opacity duration-500 ease-in-out opacity-100 animate-fadeIn"
+										>
+											<h3 className="text-xl font-semibold mb-4">
+												README for {event.repo.name}
+											</h3>
 											<div className="prose bg-gray-800 text-gray-300 p-4 rounded-b-lg shadow-md overflow-x-auto">
 												<ReactMarkdown
 													remarkPlugins={[remarkGfm]}
 													components={{
-														code({ node, inline, className, children, ...props }) {
+														code({node, inline, className, children, ...props}) {
 															const match = /language-(\w+)/.exec(className || '');
 															return !inline && match ? (
 																<SyntaxHighlighter
@@ -122,12 +139,22 @@ const GitHubFeed = () => {
 																</code>
 															);
 														},
-														h1: ({ node, ...props }) => <h1 className="text-2xl font-bold" {...props} />,
-														h2: ({ node, ...props }) => <h2 className="text-xl font-semibold" {...props} />,
-														h3: ({ node, ...props }) => <h3 className="text-lg font-semibold" {...props} />,
-														p: ({ node, ...props }) => <p className="my-2" {...props} />,
-														li: ({ node, ...props }) => <li className="ml-4 list-disc" {...props} />,
-														a: ({ node, ...props }) => <a className="text-blue-400 hover:underline" {...props} />,
+														h1: ({node, ...props}) => (
+															<h1 className="text-2xl font-bold" {...props} />
+														),
+														h2: ({node, ...props}) => (
+															<h2 className="text-xl font-semibold" {...props} />
+														),
+														h3: ({node, ...props}) => (
+															<h3 className="text-lg font-semibold" {...props} />
+														),
+														p: ({node, ...props}) => <p className="my-2" {...props} />,
+														li: ({node, ...props}) => (
+															<li className="ml-4 list-disc" {...props} />
+														),
+														a: ({node, ...props}) => (
+															<a className="text-blue-400 hover:underline" {...props} />
+														),
 													}}
 												>
 													{readmeContent}
@@ -141,7 +168,8 @@ const GitHubFeed = () => {
 						{displayCount < events.length && (
 							<button
 								onClick={handleLoadMore}
-								className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700">
+								className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700"
+							>
 								Load More
 							</button>
 						)}

@@ -26,3 +26,8 @@ body {
         text-wrap: balance;
     }
 }
+
+
+.h-80vh {
+    height: 80vh;
+}
