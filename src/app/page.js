@@ -164,19 +164,19 @@ export default function Home() {
 					<div className="flex justify-center space-x-6">
 						{/* Replace '#' with your actual profile links */}
 						<a
-							href="#"
+							href="https://www.linkedin.com/in/camilo-alvarez-velez/"
 							className="text-indigo-400 hover:text-indigo-600 transition-colors duration-300"
 						>
 							LinkedIn
 						</a>
 						<a
-							href="#"
+							href="https://github.com/Noway-code"
 							className="text-indigo-400 hover:text-indigo-600 transition-colors duration-300"
 						>
 							GitHub
 						</a>
 						<a
-							href="mailto:youremail@example.com"
+							href="mailto:camiloalvarezvelez@outlook.com"
 							className="text-indigo-400 hover:text-indigo-600 transition-colors duration-300"
 						>
 							Email
