@@ -1,6 +1,6 @@
 ---
 title: Thoughts -- JPEG is weird!
-date: 2024-05-01
+date: 2024-10-01
 ---
 
 I'm currently in the process of taking a robot vision class so the idea of edge detection and compression is fresh in my mind. Man, JPEG is weird.
