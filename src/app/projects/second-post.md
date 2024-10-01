@@ -1,5 +1,5 @@
 ---
-title: JPEG is weird
+title: Thoughts -- JPEG is weird!
 date: 2024-05-01
 ---
 

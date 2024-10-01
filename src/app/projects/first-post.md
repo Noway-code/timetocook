@@ -1,5 +1,5 @@
 ---
-title: Welcome to my site!
+title: Trying this thing out
 date: 2024-05-01
 ---
 

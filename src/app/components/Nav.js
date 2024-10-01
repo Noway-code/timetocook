@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Nav = () => {
 	return (
-		<nav className="bg-gray-800 p-4">
+		<nav className="bg-blue-800 p-4 font-bold">
 			<ul className="flex space-x-4">
 				<li>
 					<Link href="/">

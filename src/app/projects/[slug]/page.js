@@ -1,8 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
+import {remark} from 'remark';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeRaw from 'rehype-raw';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeStringify from 'rehype-stringify';
 
 export async function generateStaticParams() {
 	const files = fs.readdirSync(path.join(process.cwd(), 'src/app/projects'));
@@ -15,19 +19,32 @@ export async function generateStaticParams() {
 }
 
 export default async function Project({ params }) {
-	const { slug } = params;
+	const {slug} = params;
 	const filePath = path.join(process.cwd(), 'src/app/projects', `${slug}.md`);
 	const fileContent = fs.readFileSync(filePath, 'utf-8');
 
-	const { data: frontMatter, content } = matter(fileContent);
-	const processedContent = await remark().use(html).process(content);
+	const {data: frontMatter, content} = matter(fileContent);
+
+	const processedContent = await remark()
+		.use(remarkGfm)
+		.use(remarkRehype, {allowDangerousHtml: true}) // Convert to HTML AST
+		.use(rehypeRaw) // Process raw HTML
+		.use(rehypeHighlight) // Syntax highlighting
+		.use(rehypeStringify) // Serialize HTML
+		.process(content);
+
 	const contentHtml = processedContent.toString();
 
 	return (
-		<div className="bg-gray-900 min-h-screen text-white p-4">
-			<h1 className="text-4xl font-bold">{frontMatter.title}</h1>
-			<p className="text-gray-400">{new Date(frontMatter.date).toLocaleDateString()}</p>
-			<div className="mt-4" dangerouslySetInnerHTML={{ __html: contentHtml }} />
+		<div className="bg-gray-900 min-h-screen text-white p-8">
+			<h1 className="text-5xl font-bold mb-4">{frontMatter.title}</h1>
+			<p className="text-gray-400 mb-8">
+				{new Date(frontMatter.date).toLocaleDateString()}
+			</p>
+			<div
+				className="prose prose-invert max-w-none"
+				dangerouslySetInnerHTML={{__html: contentHtml}}
+			/>
 		</div>
 	);
 }

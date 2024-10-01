@@ -118,7 +118,7 @@ const GitHubFeed = () => {
 											<h3 className="text-xl font-semibold mb-4">
 												README for {event.repo.name}
 											</h3>
-											<div className="prose bg-gray-800 text-gray-300 p-4 rounded-b-lg shadow-md overflow-x-auto">
+											<div className="prose bg-gray-800 text-gray-500 p-4 rounded-b-lg shadow-md overflow-x-auto">
 												<ReactMarkdown
 													remarkPlugins={[remarkGfm]}
 													components={{
@@ -140,20 +140,20 @@ const GitHubFeed = () => {
 															);
 														},
 														h1: ({node, ...props}) => (
-															<h1 className="text-2xl font-bold" {...props} />
+															<h1 className="text-2xl font-bold text-gray-300" {...props} />
 														),
 														h2: ({node, ...props}) => (
-															<h2 className="text-xl font-semibold" {...props} />
+															<h2 className="text-xl font-semibold text-gray-300" {...props} />
 														),
 														h3: ({node, ...props}) => (
-															<h3 className="text-lg font-semibold" {...props} />
+															<h3 className="text-lg font-semibold text-gray-300" {...props} />
 														),
-														p: ({node, ...props}) => <p className="my-2" {...props} />,
+														p: ({node, ...props}) => <p className="my-2 text-gray-300" {...props} />,
 														li: ({node, ...props}) => (
-															<li className="ml-4 list-disc" {...props} />
+															<li className="ml-4 list-disc text-gray-300" {...props} />
 														),
 														a: ({node, ...props}) => (
-															<a className="text-blue-400 hover:underline" {...props} />
+															<a className="text-blue-400 hover:underline " {...props} />
 														),
 													}}
 												>
