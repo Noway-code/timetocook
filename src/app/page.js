@@ -82,7 +82,7 @@ export default function Home() {
 
 			{/* Main Content */}
 			<div
-				className="relative z-10 flex flex-col items-stretch text-white"
+				className="relative z-10 flex flex-col items-stretch text-amber-50"
 				ref={contentRef}
 			>
 				{/* Hero Section */}
@@ -100,7 +100,7 @@ export default function Home() {
 					</motion.h1>
 
 					<p className="text-3xl max-w-3xl mb-6 mx-4">
-						I&apos;m a passionate software engineer with experience building full-stack applications, machine learning models, and biotech
+						I&apos;m a dedicated software engineer with experience building full-stack applications, machine learning models, and biotech
 						solutions.
 					</p>
 
@@ -210,16 +210,30 @@ export default function Home() {
 					>
 						{/* Resume Section */}
 						<div className="flex flex-col justify-start w-full lg:w-1/2 p-4">
-							<div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-								<h3 className="text-3xl font-bold mb-4 text-center">My Resume</h3>
+							<div className="bg-gray-800 p-6 rounded-lg shadow-lg ">
+								<div className="flex flex-row justify-between items-center m-4  ">
+									<h3 className="text-3xl font-bold text-center">My Resume</h3>
+									<div className="flex justify-center mr-10">
+										<a
+											href="https://docs.google.com/document/d/1kg6MJMeK-1e4-C85Q1H2Gs-Pg34M_koB/export?format=pdf"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="inline-block bg-indigo-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-indigo-800 transition-colors duration-300"
+										>
+											Download Resume
+										</a>
+									</div>
+								</div>
 								<div className="mt-4 flex justify-center">
 									<iframe
 										src="https://docs.google.com/document/d/e/2PACX-1vQvk_XUpa-kDAMopAib8GnMKcpiC8jIXq8K-8hFTWangCKnbfaKG30KtNwW-CzXww/pub?embedded=true"
-										className="w-full h-screen rounded-lg"
+										className="w-full h-screen rounded-lg bg-gray-900 bg-opacity-30 p-4"
 										title="Resume"
 									/>
 								</div>
 							</div>
+
+
 						</div>
 
 						<div className="flex flex-col w-full lg:w-1/2 p-4">
