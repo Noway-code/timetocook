@@ -8,7 +8,7 @@ export const metadata = {
 	image: "run.png",
 	url: "https://nowaycode.com",
 	type: "website",
-	site_name: "Noway Portfolio!",
+	site_name: "Camilo's Portfolio!",
 	locale: "en_US",
 };
 

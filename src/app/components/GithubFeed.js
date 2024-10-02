@@ -113,12 +113,12 @@ const GitHubFeed = () => {
 									{selectedEventId === event.id && readmeContent && (
 										<li
 											key={`readme-${event.id}`}
-											className="border-2 bg-gray-600 p-4 shadow-md w-full rounded-b-lg transition-opacity duration-500 ease-in-out opacity-100 animate-fadeIn"
+											className="border-2 bg-gray-500 p-4 shadow-md w-full rounded-b-lg transition-opacity duration-500 ease-in-out opacity-100 animate-fadeIn"
 										>
 											<h3 className="text-xl font-semibold mb-4">
 												README for {event.repo.name}
 											</h3>
-											<div className="prose bg-gray-800 text-gray-500 p-4 rounded-b-lg shadow-md overflow-x-auto">
+											<div className="prose bg-gray-700 text-gray-500 p-4 rounded-b-lg shadow-md overflow-x-auto">
 												<ReactMarkdown
 													remarkPlugins={[remarkGfm]}
 													components={{
@@ -154,6 +154,9 @@ const GitHubFeed = () => {
 														),
 														a: ({node, ...props}) => (
 															<a className="text-blue-400 hover:underline " {...props} />
+														),
+														strong: ({node, ...props}) => (
+															<strong className="font-semibold text-gray-300" {...props} />
 														),
 													}}
 												>
