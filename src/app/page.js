@@ -99,13 +99,13 @@ export default function Home() {
 						Hello, I&apos;m Camilo
 					</motion.h1>
 
-					<p className="text-3xl max-w-3xl mb-6">
+					<p className="text-3xl max-w-3xl mb-6 mx-4">
 						I&apos;m a passionate software engineer with experience building full-stack applications, machine learning models, and biotech
 						solutions.
 					</p>
 
 
-					<div className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+					<div className="mt-10  flex flex-col sm:flex-row sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
 						<ScrollLink
 							to="resume-projects-section"
 							smooth={true}
@@ -136,18 +136,18 @@ export default function Home() {
 							<div className="text-purple-500 font-bold lg:ml-8 text-2xl md:text-4xl mb-4 md:mb-0 lg:px-32">
 								About Me
 							</div>
-							<code className="block text-xs md:text-lg mt-4 md:mt-0 text-gray-500 font-mono leading-none whitespace-pre-wrap">
+							<code className="block text-xs md:text-lg mt-4 mx-2 md:mt-0 text-gray-500 font-mono leading-none whitespace-pre-wrap">
 
 								{`
-                ／＞　 フ 	  
-                 | 　_　_|  	      
-             ／\` ミ＿xノ  	  
-            /　　　　 |  	  
+                 ／＞　 フ 	      
+                | 　_　_|  	      
+              ／\` ミ＿xノ  	      
+             /　　　　 |  	      
             /　 ヽ　　 ﾉ  	      
             │　　|　|　| 	      
          /￣|　  |　|　|		      
 		 (￣ヽ＿_ヽ_)__)			  
-		  ＼二)                     
+		   ＼二)                    
     `}
 							</code>
 						</div>
