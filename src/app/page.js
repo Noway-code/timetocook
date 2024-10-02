@@ -124,33 +124,36 @@ export default function Home() {
 				</Section>
 
 				{/* About Me Section */}
-				<Section className="flex flex-col items-center justify-center text-center py-20 mb-14">
+				<Section className="flex flex-col items-center justify-center text-center px-4 py-10 mb-14 sm:mb-10 lg:mb-32">
 
 					<motion.h2
-						className="text-5xl mb-6"
+						className="text-3xl md:text-5xl mb-6 "
 						initial={{opacity: 0}}
 						animate={{opacity: 1}}
 						transition={{duration: 1}}
 					>
-						<div className="flex flex-row items-center bg-amber-50 rounded-2xl p-4">
-							<div className="text-purple-500 font-bold">About Me</div>
-							<code className="block text-lg mt-8 text-gray-500 font-mono leading-none whitespace-pre-wrap">
+						<div className="flex flex-col md:flex-row justify-center items-center bg-amber-50 rounded-2xl md:p-4">
+							<div className="text-purple-500 font-bold lg:ml-8 text-2xl md:text-4xl mb-4 md:mb-0 lg:px-32">
+								About Me
+							</div>
+							<code className="block text-xs md:text-lg mt-4 md:mt-0 text-gray-500 font-mono leading-none whitespace-pre-wrap">
+
 								{`
-	                     ／＞　 フ
-	                      | 　_　_| 
-	                    ／\` ミ＿xノ 
-	                 /　　　　 | 
-	                 /　 ヽ　　 ﾉ 
-	                │　　|　|　| 
-		         /￣|　  |　|　| 
-				 (￣ヽ＿_ヽ_)__) 
-		＼二)
-	    `}
+                ／＞　 フ 	  
+                 | 　_　_|  	      
+             ／\` ミ＿xノ  	  
+            /　　　　 |  	  
+            /　 ヽ　　 ﾉ  	      
+            │　　|　|　| 	      
+         /￣|　  |　|　|		      
+		 (￣ヽ＿_ヽ_)__)			  
+		  ＼二)                     
+    `}
 							</code>
 						</div>
 					</motion.h2>
 
-					<p className="text-2xl max-w-4xl mb-8">
+					<span className="text-2xl max-w-4xl mb-8 ">
 						I&apos;m a software engineer based in Orlando, Florida, specializing in
 						building high-performance web applications. I’m passionate about
 						integrating technology with everyday life and enjoy experimenting with
@@ -163,13 +166,13 @@ export default function Home() {
 							<span className="font-light text-black hover:text-white"> Scientific</span>
 						</Link>
 						, where I built scalable applications in a fast-paced environments.
-					</p>
-					<p className="text-2xl max-w-4xl mb-8">
+					</span>
+					<span className="text-2xl max-w-4xl mb-8">
 						My interests extend into robotics and AI, with a focus on making complex
 						systems simple and intuitive. Whether it’s through full-stack
 						development, biotech, or automation, I’m always looking for ways to
 						make an impact.
-					</p>
+					</span>
 
 
 				</Section>
