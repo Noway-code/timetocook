@@ -8,23 +8,26 @@ import {Element, Link as ScrollLink} from 'react-scroll';
 import Projects from './components/Projects';
 import {motion} from "framer-motion";
 import icons from "@/app/data/icons";
+import Nav from "@/app/components/Nav";
 
 export default function Home() {
 	useAnimateOnScroll();
 
-	// State to hold the scroll position
 	const [scrollY, setScrollY] = useState(0);
-
-	// State to hold the content height
 	const [contentHeight, setContentHeight] = useState(0);
-
-	// Ref to hold the main content container
 	const contentRef = useRef(null);
 
-	// Effect to update scroll position
 	useEffect(() => {
+		let ticking = false;
+
 		const handleScroll = () => {
-			setScrollY(window.scrollY);
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					setScrollY(window.scrollY);
+					ticking = false;
+				});
+				ticking = true;
+			}
 		};
 
 		window.addEventListener("scroll", handleScroll);
@@ -40,7 +43,6 @@ export default function Home() {
 		}
 	}, []);
 
-	// Handle window resize to update content height
 	useEffect(() => {
 		const handleResize = () => {
 			if (contentRef.current) {
@@ -55,8 +57,10 @@ export default function Home() {
 		};
 	}, []);
 
-	// Calculate background position
-	const backgroundPositionY = scrollY * 0.5;
+	// Parallax effect for background position
+	const parallaxSpeed = .3;
+	const backgroundPositionY = scrollY * parallaxSpeed;
+
 
 
 	const renderIcons = () => {
@@ -69,16 +73,27 @@ export default function Home() {
 
 
 	return (
-		<div className="relative w-full overflow-hidden bg-gradient-to-b from-blue-800 via-indigo-900 to-gray-800">
+		<div className="relative w-full overflow-hidden"
+		     style={{background: 'linear-gradient(to bottom, rgb(128, 0, 128), rgb(75, 0, 130), rgb(30, 0, 30))'}}>
 			{/* Parallax Background */}
+
+			<Nav/>
 			<div
-				className="absolute top-0 left-0 w-full "
+				className="absolute inset-0 z-0 pattern-bg"
 				style={{
-					height: `${contentHeight}px`,
-					transform: `translateY(-${backgroundPositionY}px)`,
-					willChange: 'transform',
+					backgroundPosition: `center ${backgroundPositionY}px`,
+					transition: "background-position 10s ease-out",
 				}}
-			/>
+			></div>
+
+			{/*<div*/}
+			{/*	className="absolute top-0 left-0 w-full "*/}
+			{/*	style={{*/}
+			{/*		height: `${contentHeight}px`,*/}
+			{/*		transform: `translateY(-${backgroundPositionY}px)`,*/}
+			{/*		willChange: 'transform',*/}
+			{/*	}}*/}
+			{/*/>*/}
 
 			{/* Main Content */}
 			<div
@@ -110,7 +125,7 @@ export default function Home() {
 							to="resume-projects-section"
 							smooth={true}
 							duration={1000}
-							className="flex items-center justify-center rounded-md bg-white px-8 py-3 text-base font-medium text-indigo-600 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
+							className="flex items-center justify-center rounded-md bg-amber-50 px-8 py-3 text-base font-medium text-indigo-600 hover:bg-gray-200 transition-colors duration-300 cursor-pointer"
 						>
 							View Resume & Projects
 						</ScrollLink>
