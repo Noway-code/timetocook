@@ -39,23 +39,23 @@ export default function Page() {
 					<div
 						className="flex flex-col md:flex-row items-center bg-blue-900 rounded-2xl p-4 space-y-4 md:space-y-0 md:space-x-4 font-bold">
 						<p className="text-amber-50 text-2xl text-center">Jump to:</p>
-						<ul className="flex flex-wrap justify-center space-x-4">
-							<li className="bg-blue-500 p-2 rounded-lg">
+						<ul className="flex flex-wrap justify-center ">
+							<li className="bg-blue-500 p-2 rounded-lg m-1">
 								<ScrollLink to="recent-activity" smooth={true} duration={500} className="cursor-pointer">
 									Recent Activity
 								</ScrollLink>
 							</li>
-							<li className="bg-blue-500 p-2 rounded-lg">
+							<li className="bg-blue-500 p-2 rounded-lg m-1">
 								<ScrollLink to="projects" smooth={true} duration={500} className="cursor-pointer">
 									Projects
 								</ScrollLink>
 							</li>
-							<li className="bg-blue-500 p-2 rounded-lg">
+							<li className="bg-blue-500 p-2 rounded-lg m-1">
 								<ScrollLink to="github-activity" smooth={true} duration={500} className="cursor-pointer">
 									GitHub Activity
 								</ScrollLink>
 							</li>
-							<li className="bg-blue-500 p-2 rounded-lg">
+							<li className="bg-blue-500 p-2 rounded-lg m-1">
 								<ScrollLink to="tech-stack" smooth={true} duration={500} className="cursor-pointer">
 									Tech Stack
 								</ScrollLink>
@@ -128,7 +128,7 @@ export default function Page() {
 			{/* GitHub Activity Section */}
 			<Element name="github-activity">
 				<Section className="w-full">
-					<div>
+					<div style={{maxWidth: "80vw"}}>
 						<h2 className="text-4xl font-bold mb-4">GitHub Contributions</h2>
 						<div className="border-gray-300 border-2 bg-gray-800 rounded-2xl p-4 mb-8">
 							<GitHubCalendar username="Noway-code"/>
