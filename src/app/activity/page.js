@@ -145,19 +145,32 @@ export default function Page() {
 			{/* Tech Stack Section */}
 			<Element name="tech-stack">
 				<Section className="w-full">
-					<h2 className="text-4xl font-bold mb-4">Tech Stack</h2>
-					<div className="flex flex-wrap justify-start gap-4">
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">JavaScript</span>
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">React</span>
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">Node.js</span>
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">Python</span>
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">C#</span>
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">FastAPI</span>
-						<span className="px-4 py-2 bg-gray-700 text-white rounded-full">Azure</span>
+					<h2 className="text-4xl font-bold mb-4">Tools I use:</h2>
+					<div className="flex flex-wrap gap-2 bg-amber-50 p-2 rounded-3xl text-2xl">
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Python</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">C</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">C#/.NET</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Java</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Bash Scripting</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Powershell Scripting</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">React</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">React Native</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">FastAPI</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">TailwindCSS</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">MySQL</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">NumPy</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Pandas</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Node.js</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Linux</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Ubuntu</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Debian</span>
+						<span className="px-3 py-1 bg-purple-600 text-amber-50 rounded-full">Jupyter</span>
 					</div>
+
+
 				</Section>
-				i actually dont know what to put here yet so ignore this section
 			</Element>
+
 
 			{/* Footer Section */}
 			<div className="w-full text-center mt-8">
