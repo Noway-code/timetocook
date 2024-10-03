@@ -253,6 +253,13 @@ export default function Home() {
 
 						<div className="flex flex-col w-full lg:w-1/2 p-4">
 							<Projects/>
+							<Link
+								href="/activity"
+								className="mt-4 flex items-center justify-center rounded-md bg-purple-600 px-8 py-3 text-base font-medium text-white hover:bg-purple-800 transition-colors duration-300"
+							>
+								For the full list of projects, check out my Activity page!
+							</Link>
+							<p className="font-thin text-xs mt-1 ">please check it out i put so much work into it </p>
 						</div>
 					</Section>
 				</Element>

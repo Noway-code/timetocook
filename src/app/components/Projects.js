@@ -15,13 +15,18 @@ const Projects = () => {
 					</div>
 
 					{/* Button always at the bottom */}
-					<div className="mt-auto">
-						<a
-							href={project.link}
-							className="inline-block px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-500 transition-colors duration-300"
-						>
-							View on GitHub
-						</a>
+					<div className="flex flex-wrap justify-start gap-2 mt-auto">
+						{project.links.map((link, index) => (
+							<a
+								key={index}
+								href={link.url}
+								className="inline-block px-4 py-2 bg-indigo-600 text-white rounded mt-2 hover:bg-indigo-500 transition-colors duration-300"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								View {link.name}
+							</a>
+						))}
 					</div>
 				</div>
 			))}
