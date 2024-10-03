@@ -7,6 +7,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
+import Link from "next/link";
 
 export async function generateStaticParams() {
 	const files = fs.readdirSync(path.join(process.cwd(), 'src/app/projects'));
@@ -22,7 +23,6 @@ export default async function Project({ params }) {
 	const {slug} = params;
 	const filePath = path.join(process.cwd(), 'src/app/projects', `${slug}.md`);
 	const fileContent = fs.readFileSync(filePath, 'utf-8');
-
 	const {data: frontMatter, content} = matter(fileContent);
 
 	const processedContent = await remark()
@@ -37,7 +37,10 @@ export default async function Project({ params }) {
 
 	return (
 		<div className="bg-gray-900 min-h-screen text-white p-8">
-			<h1 className="text-5xl font-bold mb-4">{frontMatter.title}</h1>
+			<Link href="/projects" className="text-blue-400 hover:text-blue-200">
+				← Back to Projects
+			</Link>
+			<h1 className="text-5xl font-bold mt-2 mb-4">{frontMatter.title}</h1>
 			<p className="text-gray-400 mb-8">
 				{new Date(frontMatter.date).toLocaleDateString()}
 			</p>
