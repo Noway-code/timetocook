@@ -47,10 +47,15 @@ export default async function Projects() {
 						There may be more efficient ways to do this, but I never claimed to be a genius developer—just a persistent one.
 					</h2>
 					<ul>
-						{projects.map((project) => (
+						{projects.reverse().map((project) => (
 							<li key={project.slug} className="mb-2">
 								<Link href={`/projects/${project.slug}`}>
-									<div className="text-blue-400 hover:underline">{project.frontMatter.title}</div>
+									<div className="text-blue-400 hover:underline flex flex-row">
+										{project.frontMatter.title}
+										<p className="text-gray-100 opacity-30 ml-1">
+											({new Date(project.frontMatter.date).toLocaleDateString('en-US', {timeZone: 'UTC'})})
+										</p>
+									</div>
 								</Link>
 							</li>
 						))}

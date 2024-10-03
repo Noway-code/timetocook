@@ -42,7 +42,7 @@ export default async function Project({ params }) {
 			</Link>
 			<h1 className="text-5xl font-bold mt-2 mb-4">{frontMatter.title}</h1>
 			<p className="text-gray-400 mb-8">
-				{new Date(frontMatter.date).toLocaleDateString()}
+				{new Date(frontMatter.date).toLocaleDateString('en-US', {timeZone: 'UTC'})}
 			</p>
 			<div
 				className="prose prose-invert max-w-none"
