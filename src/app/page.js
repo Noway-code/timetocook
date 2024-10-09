@@ -82,18 +82,9 @@ export default function Home() {
 				className="absolute inset-0 z-0 pattern-bg"
 				style={{
 					backgroundPosition: `center ${backgroundPositionY}px`,
-					transition: "background-position 10s ease-out",
+					transition: "background-position 15s ease-out",
 				}}
 			></div>
-
-			{/*<div*/}
-			{/*	className="absolute top-0 left-0 w-full "*/}
-			{/*	style={{*/}
-			{/*		height: `${contentHeight}px`,*/}
-			{/*		transform: `translateY(-${backgroundPositionY}px)`,*/}
-			{/*		willChange: 'transform',*/}
-			{/*	}}*/}
-			{/*/>*/}
 
 			{/* Main Content */}
 			<div
@@ -115,9 +106,11 @@ export default function Home() {
 					</motion.h1>
 
 					<p className="text-3xl max-w-3xl mb-6 mx-4">
-						I&apos;m a dedicated software engineer with experience building full-stack applications, machine learning models, and biotech
-						solutions.
-					</p>
+						I&apos;m a software engineer from Orlando who thrives on crafting clean,
+						efficient code and building solutions that make a real impact.
+						Whether I&apos;m developing full-stack web applications or exploring
+						machine learning projects, I love turning ideas into reality with
+						creativity and precision. Let’s build something awesome together!					</p>
 
 
 					<div className="mt-10  flex flex-col sm:flex-row sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -169,24 +162,27 @@ export default function Home() {
 					</motion.h2>
 
 					<span className="text-2xl max-w-4xl mb-8 ">
-						I&apos;m a software engineer based in Orlando, Florida, specializing in
-						building high-performance web applications. I’m passionate about
-						integrating technology with everyday life and enjoy experimenting with
-						new programming languages and frameworks. I previously worked as a software developer intern at{' '}
+						I&apos;ve interned at
 						<Link
 							href="/activity"
-							className="inline-block p-1 rounded-md cursor-pointer font-semibold bg-white text-red-500 hover:bg-red-600 hover:text-white transition-colors duration-300"
+							className="inline-block ml-1 p-1 rounded-md bg-amber-50 cursor-pointer font-semibold text-red-500 hover:bg-red-600 hover:text-white transition-colors duration-300"
 						>
-							Thermo Fisher
+							 Thermo Fisher
 							<span className="font-light text-black hover:text-white"> Scientific</span>
 						</Link>
-						, where I built scalable applications in a fast-paced environments.
-					</span>
+						, I developed scalable features for an advanced spectral cell sorter
+						and contributed to Azure DevOps pipelines, enhancing deployment processes
+						and ensuring reliable software delivery. One of my standout projects,
+						<span className="font-bold">CreditShield</span>, won 1st place in BNY
+						Mellon’s challenge at KnightHacks by utilizing machine learning for
+						real-time transaction analysis and incorporating blockchain technology
+						for secure record verification.					</span>
 					<span className="text-2xl max-w-4xl mb-8">
-						My interests extend into robotics and AI, with a focus on making complex
-						systems simple and intuitive. Whether it’s through full-stack
-						development, biotech, or automation, I’m always looking for ways to
-						make an impact.
+						I&apos;m passionate about Linux and proficient in bash scripting
+						and PowerShell, which I use to automate tasks and optimize systems.
+						Whether it&apos;s through full-stack development, backend optimizations,
+						or exploring new technologies,
+						I’m always looking to create impactful and user-friendly applications.
 					</span>
 
 
