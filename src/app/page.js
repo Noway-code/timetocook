@@ -173,16 +173,21 @@ export default function Home() {
 						, I developed scalable features for an advanced spectral cell sorter
 						and contributed to Azure DevOps pipelines, enhancing deployment processes
 						and ensuring reliable software delivery. One of my standout projects,
-						<span className="font-bold">CreditShield</span>, won 1st place in BNY
+						<span className="font-bold ml-1">CreditShield</span>, won 1st place in BNY
 						Mellon’s challenge at KnightHacks by utilizing machine learning for
 						real-time transaction analysis and incorporating blockchain technology
 						for secure record verification.					</span>
 					<span className="text-2xl max-w-4xl mb-8">
-						I&apos;m passionate about Linux and proficient in bash scripting
-						and PowerShell, which I use to automate tasks and optimize systems.
-						Whether it&apos;s through full-stack development, backend optimizations,
-						or exploring new technologies,
-						I’m always looking to create impactful and user-friendly applications.
+						I&apos;m a full-stack web developer with a strong foundation in React,
+						TailwindCSS, Node, and Express. I’m passionate about
+						Python, using it extensively for backend development,
+						scripting, and diving into machine learning with tools like
+						OpenCV. Additionally, I love working in Linux environments
+						and am proficient in bash scripting and PowerShell,
+						which I use to automate tasks and optimize systems.
+						When I&apos;m not coding, I enjoy staying up-to-date with the
+						latest tech trends and collaborating on creative projects.
+						Let&apos;s connect and create something amazing together!
 					</span>
 
 
