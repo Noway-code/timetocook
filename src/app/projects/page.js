@@ -30,7 +30,7 @@ export default async function Projects() {
 			<Nav/>
 			<div className="p-4">
 				<div className="bg-gray-700 mt-2 p-2">
-					<h1 className="text-4xl font-bold mb-4">Welcome to my markd!</h1>
+					<h1 className="text-4xl font-bold mb-4">Welcome to my markdown blog!</h1>
 					<h2 className="mb-2 pl-3 font-bold text-2xl">
 						What is this?
 					</h2>
@@ -39,7 +39,8 @@ export default async function Projects() {
 						                           style={{color: 'rgb(139, 92, 246)'}}>Obsidian.md</Link>,
 						and someone who appreciates the simplicity of pure markdown, I decided to bring those old-school markdown vibes back into
 						blogging.
-						I thought, &quot;Why not reinvent the wheel a little?&quot; so I built this simple markdown-powered blog using Next.js.
+						I very much so reinvented the wheel here, but I thought I would try out SLUGS and get a feel for how they work.
+						This was built with Next.js and Tailwind CSS, and I&apos;m using gray-matter to parse the front matter of my markdown files.
 						<br/>
 						<br/>
 						Now here we are! This blog directly publishes content from my Obsidian vault so I can write in markdown and publish to the web
