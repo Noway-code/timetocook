@@ -6,7 +6,7 @@ const Projects = () => {
 			{projects.map((project) => (
 				<div
 					key={project.id}
-					className="bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 flex flex-col justify-between"
+					className="bg-white/20 backdrop-blur-md border border-white/30 p-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 flex flex-col justify-between"
 				>
 					{/* Project Title and Description */}
 					<div>

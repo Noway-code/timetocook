@@ -1,8 +1,8 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const Nav = () => {
 	return (
-		<nav className="bg-opacity-0 text-white p-4 font-bold">
+		<nav className="relative z-20 bg-opacity-0 text-white p-4 font-bold">
 			<ul className="flex space-x-4">
 				<li>
 					<Link href="/">
