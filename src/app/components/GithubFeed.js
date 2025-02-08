@@ -1,27 +1,26 @@
-import { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { motion, AnimatePresence } from 'framer-motion';
-import getGithubData from '../../services/github';
+import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { motion, AnimatePresence } from "framer-motion";
+import getGithubData from "../../services/github";
 
 const Spinner = ({ size = "h-6 w-6", border = "border-b-2" }) => (
-    <div className={`animate-spin rounded-full ${size} ${border} border-white`}></div>
+    <div className={`animate-spin rounded-full ${size} ${border} border-gradient-to-r from-indigo-500 via-purple-500 to-pink-500`}></div>
 );
 
 const GitHubFeed = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [displayCount, setDisplayCount] = useState(5); // Initial number of events to display
-    const [selectedEventId, setSelectedEventId] = useState(null); // State to store the selected event ID
-    const [readmeContent, setReadmeContent] = useState(''); // State to store the README content
-    const [readmeCache, setReadmeCache] = useState({}); // State to store the README cache
-    const [readmeLoading, setReadmeLoading] = useState(false); // State to indicate README loading
-    const [readmeError, setReadmeError] = useState(null); // State to store README fetching errors
+    const [displayCount, setDisplayCount] = useState(5);
+    const [selectedEventId, setSelectedEventId] = useState(null);
+    const [readmeContent, setReadmeContent] = useState("");
+    const [readmeCache, setReadmeCache] = useState({});
+    const [readmeLoading, setReadmeLoading] = useState(false);
+    const [readmeError, setReadmeError] = useState(null);
 
-    // Fetch events from GitHub with error handling and retry capability.
     const fetchEvents = async () => {
         setLoading(true);
         setError(null);
@@ -30,10 +29,10 @@ const GitHubFeed = () => {
             if (data && data.length > 0) {
                 setEvents(data);
             } else {
-                setError('No events found.');
+                setError("No events found.");
             }
         } catch (err) {
-            setError('Error fetching data: ' + err.message);
+            setError("Error fetching data: " + err.message);
         } finally {
             setLoading(false);
         }
@@ -44,40 +43,40 @@ const GitHubFeed = () => {
     }, []);
 
     const handleLoadMore = () => {
-        setDisplayCount((prevCount) => prevCount + 5); // Load 5 more events
+        setDisplayCount((prevCount) => prevCount + 5);
     };
 
-    // Fetch README content for a repository with proper loading and error states.
     const fetchReadme = async (repoFullName) => {
-        const [owner, repo] = repoFullName.split('/');
+        const [owner, repo] = repoFullName.split("/");
         setReadmeLoading(true);
         setReadmeError(null);
         try {
-            const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/readme`, {
-                headers: { Accept: 'application/vnd.github.v3.raw' },
-            });
+            const res = await fetch(
+                `https://api.github.com/repos/${owner}/${repo}/readme`,
+                {
+                    headers: { Accept: "application/vnd.github.v3.raw" },
+                }
+            );
             if (res.ok) {
                 const content = await res.text();
                 setReadmeCache((prevCache) => ({ ...prevCache, [repoFullName]: content }));
                 setReadmeContent(content);
             } else {
-                setReadmeError('README not found.');
-                setReadmeContent('');
+                setReadmeError("README not found.");
+                setReadmeContent("");
             }
         } catch (error) {
-            setReadmeError('Error fetching README.');
-            setReadmeContent('');
+            setReadmeError("Error fetching README.");
+            setReadmeContent("");
         } finally {
             setReadmeLoading(false);
         }
     };
 
-    // Handle event click to toggle selection and fetch the corresponding README if necessary.
     const handleEventClick = async (event) => {
         if (selectedEventId === event.id) {
-            // Deselect if already selected.
             setSelectedEventId(null);
-            setReadmeContent('');
+            setReadmeContent("");
             setReadmeError(null);
         } else {
             setSelectedEventId(event.id);
@@ -95,7 +94,7 @@ const GitHubFeed = () => {
         return (
             <div className="flex justify-center items-center space-x-2 p-4">
                 <Spinner />
-                <p>Loading GitHub events...</p>
+                <p className="text-xl text-gray-300">Loading GitHub events...</p>
             </div>
         );
     }
@@ -115,11 +114,11 @@ const GitHubFeed = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 gap-4">
-            <div className="space-y-4">
-                <h2 className="text-2xl font-bold mb-4">Latest GitHub Activity</h2>
+        <div className="grid grid-cols-1 gap-6">
+            <div className="space-y-6">
+                <h2 className="text-3xl font-bold mb-4 text-white">Latest GitHub Activity</h2>
                 {events.length === 0 ? (
-                    <p>No events found.</p>
+                    <p className="text-gray-300">No events found.</p>
                 ) : (
                     <>
                         <ul className="space-y-4 w-full">
@@ -130,18 +129,21 @@ const GitHubFeed = () => {
                                             <motion.li
                                                 key={commit.sha}
                                                 onClick={() => handleEventClick(event)}
-                                                className={`cursor-pointer bg-white p-4 shadow-md w-full transition rounded-lg ${
-                                                    selectedEventId === event.id ? 'rounded-t-lg' : ''
+                                                className={`cursor-pointer bg-white p-4 shadow-lg w-full transition rounded-lg ${
+                                                    selectedEventId === event.id ? "rounded-t-lg" : ""
                                                 }`}
-                                                whileHover={{ scale: 1.02 }}
+                                                whileHover={{ scale: 1.03, rotate: 0.5 }}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.4 }}
                                             >
-                                                <p className="font-semibold text-gray-700">
+                                                <p className="font-semibold text-gray-800">
                                                     {event.type} in {event.repo.name}
                                                 </p>
                                                 <p className="text-sm text-gray-600">
                                                     {new Date(event.created_at).toLocaleString()}
                                                 </p>
-                                                <p className="text-md text-gray-800 mt-2">
+                                                <p className="text-md text-gray-700 mt-2">
                                                     Commit message: {commit.message}
                                                 </p>
                                             </motion.li>
@@ -149,18 +151,21 @@ const GitHubFeed = () => {
                                     ) : (
                                         <motion.li
                                             onClick={() => handleEventClick(event)}
-                                            className={`cursor-pointer bg-white p-4 shadow-md w-full transition rounded-lg ${
-                                                selectedEventId === event.id ? 'rounded-t-lg' : ''
+                                            className={`cursor-pointer bg-white p-4 shadow-lg w-full transition rounded-lg ${
+                                                selectedEventId === event.id ? "rounded-t-lg" : ""
                                             }`}
-                                            whileHover={{ scale: 1.02 }}
+                                            whileHover={{ scale: 1.03, rotate: 0.5 }}
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.4 }}
                                         >
-                                            <p className="font-semibold text-gray-700">
+                                            <p className="font-semibold text-gray-800">
                                                 {event.type} in {event.repo.name}
                                             </p>
                                             <p className="text-sm text-gray-600">
                                                 {new Date(event.created_at).toLocaleString()}
                                             </p>
-                                            <p className="text-md text-gray-800 mt-2">
+                                            <p className="text-md text-gray-700 mt-2">
                                                 No commit message available.
                                             </p>
                                         </motion.li>
@@ -170,12 +175,12 @@ const GitHubFeed = () => {
                                             <motion.li
                                                 key={`readme-${event.id}`}
                                                 initial={{ opacity: 0, height: 0 }}
-                                                animate={{ opacity: 1, height: 'auto' }}
+                                                animate={{ opacity: 1, height: "auto" }}
                                                 exit={{ opacity: 0, height: 0 }}
                                                 transition={{ duration: 0.3 }}
-                                                className="border-2 bg-gray-500 p-4 shadow-md w-full rounded-b-lg overflow-hidden"
+                                                className="border-t-2 border-indigo-500 bg-gradient-to-r from-gray-700 to-gray-800 p-4 shadow-lg w-full rounded-b-lg overflow-hidden"
                                             >
-                                                <h3 className="text-xl font-semibold mb-4">
+                                                <h3 className="text-xl font-semibold mb-4 text-white">
                                                     README for {event.repo.name}
                                                 </h3>
                                                 {readmeLoading ? (
@@ -186,12 +191,12 @@ const GitHubFeed = () => {
                                                 ) : readmeError ? (
                                                     <p className="text-red-400">{readmeError}</p>
                                                 ) : readmeContent ? (
-                                                    <div className="prose bg-gray-700 text-gray-300 p-4 rounded-b-lg shadow-md overflow-x-auto">
+                                                    <div className="prose max-w-none bg-gray-900 text-gray-200 p-4 rounded-b-lg shadow-inner overflow-x-auto">
                                                         <ReactMarkdown
                                                             remarkPlugins={[remarkGfm]}
                                                             components={{
                                                                 code({ node, inline, className, children, ...props }) {
-                                                                    const match = /language-(\w+)/.exec(className || '');
+                                                                    const match = /language-(\w+)/.exec(className || "");
                                                                     return !inline && match ? (
                                                                         <SyntaxHighlighter
                                                                             style={atomDark}
@@ -199,7 +204,7 @@ const GitHubFeed = () => {
                                                                             PreTag="div"
                                                                             {...props}
                                                                         >
-                                                                            {String(children).replace(/\n$/, '')}
+                                                                            {String(children).replace(/\n$/, "")}
                                                                         </SyntaxHighlighter>
                                                                     ) : (
                                                                         <code className={className} {...props}>
@@ -208,23 +213,25 @@ const GitHubFeed = () => {
                                                                     );
                                                                 },
                                                                 h1: ({ node, ...props }) => (
-                                                                    <h1 className="text-2xl font-bold text-gray-300" {...props} />
+                                                                    <h1 className="text-2xl font-bold text-gray-200" {...props} />
                                                                 ),
                                                                 h2: ({ node, ...props }) => (
-                                                                    <h2 className="text-xl font-semibold text-gray-300" {...props} />
+                                                                    <h2 className="text-xl font-semibold text-gray-200" {...props} />
                                                                 ),
                                                                 h3: ({ node, ...props }) => (
-                                                                    <h3 className="text-lg font-semibold text-gray-300" {...props} />
+                                                                    <h3 className="text-lg font-semibold text-gray-200" {...props} />
                                                                 ),
-                                                                p: ({ node, ...props }) => <p className="my-2 text-gray-300" {...props} />,
+                                                                p: ({ node, ...props }) => (
+                                                                    <p className="my-2 text-gray-200" {...props} />
+                                                                ),
                                                                 li: ({ node, ...props }) => (
-                                                                    <li className="ml-4 list-disc text-gray-300" {...props} />
+                                                                    <li className="ml-4 list-disc text-gray-200" {...props} />
                                                                 ),
                                                                 a: ({ node, ...props }) => (
                                                                     <a className="text-blue-400 hover:underline" {...props} />
                                                                 ),
                                                                 strong: ({ node, ...props }) => (
-                                                                    <strong className="font-semibold text-gray-300" {...props} />
+                                                                    <strong className="font-semibold text-gray-200" {...props} />
                                                                 ),
                                                             }}
                                                         >
@@ -241,16 +248,13 @@ const GitHubFeed = () => {
                         {displayCount < events.length && (
                             <button
                                 onClick={handleLoadMore}
-                                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-700 transition"
+                                className="mt-4 px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700 transition"
                             >
                                 Load More
                             </button>
                         )}
                     </>
                 )}
-            </div>
-            <div className="relative">
-                <div className="absolute left-0 top-0 h-full border-l-2 border-gray-300"></div>
             </div>
         </div>
     );

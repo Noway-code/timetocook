@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react";
 import useAnimateOnScroll from "./components/useAnimateOnScroll";
 import Section from "./components/Section";
 import Link from "next/link";
@@ -10,10 +10,7 @@ import { motion } from "framer-motion";
 import icons from "@/app/data/icons";
 import Nav from "@/app/components/Nav";
 import Image from "next/image";
-
-// Import react-pdf components and set up the worker.
-import { Document, Page, pdfjs } from "react-pdf";
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+import SkillsCarousel from "./components/SkillsCarousel";
 
 export default function Home() {
     useAnimateOnScroll();
@@ -21,8 +18,6 @@ export default function Home() {
     const [scrollY, setScrollY] = useState(0);
     const [contentHeight, setContentHeight] = useState(0);
     const contentRef = useRef(null);
-    // New state to track the number of pages in the PDF
-    const [numPages, setNumPages] = useState(null);
 
     useEffect(() => {
         let ticking = false;
@@ -37,7 +32,7 @@ export default function Home() {
             }
         };
 
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
@@ -57,14 +52,14 @@ export default function Home() {
             }
         };
 
-        window.addEventListener("resize", handleResize);
+        window.addEventListener("resize", handleResize, { passive: true });
 
         return () => {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
 
-    const renderIcons = () => {
+    const renderedIcons = useMemo(() => {
         return icons.map((icon) => (
             <div key={icon.name} className="items-center mx-10 px-10">
                 <img
@@ -74,12 +69,7 @@ export default function Home() {
                 />
             </div>
         ));
-    };
-
-    // Handler for successful document load
-    const onDocumentLoadSuccess = ({ numPages }) => {
-        setNumPages(numPages);
-    };
+    }, []);
 
     return (
         <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-purple-900 to-blue-900">
@@ -184,21 +174,13 @@ export default function Home() {
 
                 {/* Skills Section */}
                 <Section
-                    className="flex flex-col items-center justify-center text-center py-20 overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 mb-5"
+                    className="flex flex-col items-center justify-center text-center py-20 bg-white/10 backdrop-blur-md border border-white/20 mb-5"
                 >
                     <h2 className="text-5xl font-bold mb-8">Skills &amp; Technologies</h2>
-                    <div className="relative flex overflow-hidden">
-                        <div className="flex animate-marquee whitespace-nowrap">
-                            {renderIcons()}
-                        </div>
-                        <div className="flex animate-marquee whitespace-nowrap">
-                            {renderIcons()}
-                        </div>
-                        <div className="flex animate-marquee whitespace-nowrap">
-                            {renderIcons()}
-                        </div>
-                    </div>
+                    <SkillsCarousel icons={icons} visibleCount={5} interval={1500} />
                 </Section>
+
+
 
                 {/* Resume and Projects Section Side by Side */}
                 <Element name="resume-projects-section">
@@ -224,11 +206,11 @@ export default function Home() {
                                         src="/resume.pdf#zoom=page-width"
                                         className="w-full h-[80vh] rounded-lg bg-gray-900 bg-opacity-30 p-4"
                                         title="Resume"
+                                        loading="lazy"
                                     />
                                 </div>
                             </div>
                         </div>
-
 
                         {/* Projects Section */}
                         <div className="flex flex-col w-full lg:w-1/2 p-4">
