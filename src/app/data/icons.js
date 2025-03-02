@@ -54,7 +54,7 @@ const icons = [
 	},
 	{
 		name: "Linux",
-		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
+		url: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg",
 	},
 	{
 		name: "Azure",

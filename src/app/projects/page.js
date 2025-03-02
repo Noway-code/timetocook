@@ -4,22 +4,22 @@ import matter from 'gray-matter';
 import Link from 'next/link';
 import Nav from "@/app/components/Nav";
 
-
 async function getProjects() {
 	const files = fs.readdirSync(path.join(process.cwd(), 'src/app/projects'));
 
-	return files
-		.filter((filename) => path.extname(filename) === '.md') // Ensure only Markdown files
+	const projects = files
+		.filter((filename) => path.extname(filename) === '.md')
 		.map((filename) => {
 			const filePath = path.join(process.cwd(), 'src/app/projects', filename);
 			const fileContent = fs.readFileSync(filePath, 'utf-8');
-			const {data: frontMatter} = matter(fileContent);
+			const { data: frontMatter } = matter(fileContent);
 
 			return {
 				frontMatter,
 				slug: filename.replace('.md', ''),
 			};
 		});
+	return projects.sort((a, b) => new Date(b.frontMatter.date) - new Date(a.frontMatter.date));
 }
 
 export default async function Projects() {
@@ -48,7 +48,7 @@ export default async function Projects() {
 						There may be more efficient ways to do this, but I never claimed to be a genius developer—just a persistent one.
 					</h2>
 					<ul>
-						{projects.reverse().map((project) => (
+						{projects.map((project) => (
 							<li key={project.slug} className="mb-2">
 								<Link href={`/projects/${project.slug}`}>
 									<div className="text-blue-400 hover:underline flex flex-row">
