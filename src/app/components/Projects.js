@@ -11,7 +11,7 @@ const Projects = () => {
 					{/* Project Title and Description */}
 					<div>
 						<h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-						<p className="text-gray-400 mb-4">{project.description}</p>
+						<p className="text-gray-200 mb-4">{project.description}</p>
 					</div>
 
 					{/* Button always at the bottom */}
