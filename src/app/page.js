@@ -193,7 +193,7 @@ export default function Home() {
                                     <h3 className="text-3xl font-bold text-center">My Resume</h3>
                                     <div className="flex justify-center mt-4 sm:mt-0">
                                         <a
-                                            href="/resume.pdf"
+                                            href="/Camilo_Alvarez_Resume.pdf"
                                             download
                                             className="inline-block bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold py-2 px-4 rounded-md hover:bg-white/30 transition"
                                         >
@@ -203,7 +203,7 @@ export default function Home() {
                                 </div>
                                 <div className="mt-4 flex justify-center">
                                     <iframe
-                                        src="/resume.pdf#zoom=page-width"
+                                        src="/Camilo_Alvarez_Resume.pdf#zoom=page-width"
                                         className="w-full h-[80vh] rounded-lg bg-gray-900 bg-opacity-30 p-4"
                                         title="Resume"
                                         loading="lazy"
