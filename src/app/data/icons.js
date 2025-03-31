@@ -20,6 +20,10 @@ const icons = [
 		name: "JavaScript",
 		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
 	},
+	{
+		name: "TypeScript",
+		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+	},
 
 	// Frameworks & Libraries
 	{
@@ -29,6 +33,10 @@ const icons = [
 	{
 		name: "Tailwind CSS",
 		url: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+	},
+	{
+		name: "Svelte",
+		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
 	},
 	{
 		name: "Node.js",
@@ -57,16 +65,21 @@ const icons = [
 		url: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/archlinux/archlinux-original.svg",
 	},
 	{
+		name: "Docker",
+		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+	},
+	{
+		name: "MongoDB",
+		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+
+	},
+	{
 		name: "Azure",
 		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
 	},
 	{
 		name: "JetBrains",
 		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jetbrains/jetbrains-original.svg",
-	},
-	{
-		name: "Git",
-		url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
 	},
 	{
 		name: "GitHub",
