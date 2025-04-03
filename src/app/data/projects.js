@@ -3,7 +3,7 @@ const projects = [{
     title: 'Ladybug',
     description: 'Utilizes LLM\'s and novel GUI data techniques to automate bug localization in your repositories. Integrates with GitHub to trigger analysis on new issues and provides bug localization results.',
     links: [{
-        name: 'GitHub', url: 'https://github.com/Noway-code/ladybug'
+        name: 'GitHub', url: 'https://github.com/LadyBugML/ladybug'
     }],
     images: ['/ladybug/ppt.png', '/ladybug/red_wing.png', '/ladybug/report.png'],
     highlighted: true,
