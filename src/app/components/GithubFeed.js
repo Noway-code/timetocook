@@ -132,10 +132,9 @@ const GitHubFeed = () => {
                                                 className={`cursor-pointer bg-white p-4 shadow-lg w-full transition rounded-lg ${
                                                     selectedEventId === event.id ? "rounded-t-lg" : ""
                                                 }`}
-                                                whileHover={{ scale: 1.03, rotate: 0.5 }}
+                                                whileHover={{ scale: 1.01 }}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.4 }}
                                             >
                                                 <p className="font-semibold text-gray-800">
                                                     {event.type} in {event.repo.name}
@@ -154,10 +153,9 @@ const GitHubFeed = () => {
                                             className={`cursor-pointer bg-white p-4 shadow-lg w-full transition rounded-lg ${
                                                 selectedEventId === event.id ? "rounded-t-lg" : ""
                                             }`}
-                                            whileHover={{ scale: 1.03, rotate: 0.5 }}
+                                            whileHover={{ scale: 1.01 }}
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            transition={{ duration: 0.4 }}
                                         >
                                             <p className="font-semibold text-gray-800">
                                                 {event.type} in {event.repo.name}

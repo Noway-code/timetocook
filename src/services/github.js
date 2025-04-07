@@ -29,18 +29,18 @@ const getGithubData = async () => {
 	};
 
 	try {
-		const response = await fetch(`${GITHUB_API_URL}/users/${username}/events`, { headers });
+		const response = await fetch(`${GITHUB_API_URL}/users/${username}/events?per_page=100`, { headers });
 		if (!response.ok) {
 			throw new Error(`Network response was not ok: ${response.statusText}`);
 		}
 		const data = await response.json();
-		// Update cache
+		const pushEvents = data.filter(event => event.type === 'PushEvent')
 		cache = {
 			timestamp: new Date().getTime(),
 			data,
 		};
 		console.log('Fetched new data from GitHub');
-		return data;
+		return pushEvents;
 	} catch (error) {
 		console.error('Error fetching GitHub data:', error);
 		return [];
