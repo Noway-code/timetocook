@@ -123,7 +123,7 @@ const GitHubFeed = () => {
                     <>
                         <ul className="space-y-4 w-full">
                             {events.slice(0, displayCount).map((event) => (
-                                <div key={event.id} className="space-y-0">
+                                <div key={event.id} className="space-y-2 bg-blue-600 rounded-2xl">
                                     {event.payload?.commits ? (
                                         event.payload.commits.map((commit) => (
                                             <motion.li
@@ -137,7 +137,7 @@ const GitHubFeed = () => {
                                                 animate={{ opacity: 1, y: 0 }}
                                             >
                                                 <p className="font-semibold text-gray-800">
-                                                    {event.type} in {event.repo.name}
+                                                    Commit in {event.repo.name}
                                                 </p>
                                                 <p className="text-sm text-gray-600">
                                                     {new Date(event.created_at).toLocaleString()}
@@ -176,7 +176,7 @@ const GitHubFeed = () => {
                                                 animate={{ opacity: 1, height: "auto" }}
                                                 exit={{ opacity: 0, height: 0 }}
                                                 transition={{ duration: 0.3 }}
-                                                className="border-t-2 border-indigo-500 bg-gradient-to-r from-gray-700 to-gray-800 p-4 shadow-lg w-full rounded-b-lg overflow-hidden"
+                                                className=" bg-gradient-to-r from-gray-700 to-gray-800 p-4 shadow-lg w-full  overflow-hidden"
                                             >
                                                 <h3 className="text-xl font-semibold mb-4 text-white">
                                                     README for {event.repo.name}
