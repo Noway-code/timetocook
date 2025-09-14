@@ -86,7 +86,7 @@ export default function Page() {
                                 </li>
                                 <li className="bg-blue-500 px-4 py-2 rounded-lg">
                                     <ScrollLink
-                                        to="tech-stack"
+                                        to="skills"
                                         smooth={true}
                                         duration={500}
                                         className="cursor-pointer"
@@ -109,7 +109,7 @@ export default function Page() {
                             {Projects.map((project) => (
                                 <div
                                     key={project.id}
-                                    className={`bg-gray-800 p-6 rounded-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition duration-300 flex flex-col ${project.highlighted ? 'border-4 border-yellow-500' : ''}`}
+                                    className={`bg-gray-800 p-8 rounded-lg shadow-2xl hover:shadow-3xl transform hover:-translate-y-2 transition duration-300 flex flex-col ${project.highlighted ? 'border-4 border-yellow-500' : ''}`}
                                 >
                                     <h3 className="text-2xl font-bold mb-4">{project.title}</h3>
                                     {/* Image Carousel */}
@@ -159,29 +159,10 @@ export default function Page() {
                 </Element>
 
                 {/* GitHub Activity Section */}
-                <Element name="github-activity">
-                    <Section className="w-full" delay={400}>
-                        <div className="max-w-7xl mx-auto">
-                            <h2 className="text-4xl font-bold mb-6 text-center">
-                                GitHub Contributions
-                            </h2>
-                            <div className="bg-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-                                <GitHubCalendar
-                                    username="Noway-code"
-                                    blockMargin={8}
-                                    blockSize={15}
-                                    fontSize={16}
-                                />
-                            </div>
-                            <div className="bg-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-                                <h3 className="text-3xl mb-4">Recent Commits</h3>
-                                <GitHubFeed/>
-                            </div>
-                        </div>
-                    </Section>
-                </Element>
-
+            <Element name="skills">
                 <SkillsSection/>
+            </Element>
+
 
                 {/* Footer */}
                 <footer className="w-full text-center py-8">

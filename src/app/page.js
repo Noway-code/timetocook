@@ -19,46 +19,6 @@ export default function Home() {
     const [contentHeight, setContentHeight] = useState(0);
     const contentRef = useRef(null);
 
-    useEffect(() => {
-        let ticking = false;
-
-        const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    setScrollY(window.scrollY);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        };
-
-        window.addEventListener("scroll", handleScroll, { passive: true });
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
-
-    useLayoutEffect(() => {
-        if (contentRef.current) {
-            setContentHeight(contentRef.current.scrollHeight);
-        }
-    }, []);
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (contentRef.current) {
-                setContentHeight(contentRef.current.scrollHeight);
-            }
-        };
-
-        window.addEventListener("resize", handleResize, { passive: true });
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
     const renderedIcons = useMemo(() => {
         return icons.map((icon) => (
             <div key={icon.name} className="items-center mx-10 px-10">
@@ -73,13 +33,9 @@ export default function Home() {
 
     return (
         <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-purple-900 to-blue-900">
-            {/* Glassmorphic Background Overlay */}
             <div className="absolute inset-0 z-0 glass-bg" />
-
-            {/* Updated Nav with higher z-index */}
             <Nav />
 
-            {/* Main Content */}
             <div className="relative z-10 flex flex-col items-stretch text-white" ref={contentRef}>
                 {/* Hero Section */}
                 <Section
@@ -96,10 +52,7 @@ export default function Home() {
                     </motion.h1>
 
                     <p className="text-3xl max-w-3xl mb-6 mx-4">
-                        I&apos;m a software engineer from Orlando who thrives on crafting clean,
-                        efficient code and building solutions that make a real impact. Whether I&apos;m developing full‑stack web
-                        applications or exploring machine learning projects, I love turning ideas into reality with creativity and
-                        precision. Let’s build something awesome together!
+                        I&apos;m a software engineer from Orlando. Let’s build something awesome together!
                     </p>
 
                     <div className="mt-10 flex flex-col sm:flex-row sm:justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
@@ -174,7 +127,7 @@ export default function Home() {
 
                 {/* Skills Section */}
                 <Section
-                    className="flex flex-col items-center justify-center text-center py-20 bg-white/10 backdrop-blur-md border border-white/20 mb-5"
+                    className="flex flex-col items-center justify-center text-center py-20 bg-white/10 backdrop-blur-md border border-white/20 mb-12"
                 >
                     <h2 className="text-5xl font-bold mb-8">Skills &amp; Technologies</h2>
                     <SkillsCarousel icons={icons} visibleCount={5} interval={1500} />
@@ -185,9 +138,9 @@ export default function Home() {
                 {/* Resume and Projects Section Side by Side */}
                 <Element name="resume-projects-section">
                     <h2 className="text-5xl font-extrabold text-center mb-12">Projects and Experience</h2>
-                    <Section id="resume-projects" className="flex flex-col lg:flex-row w-full pb-10" delay={400}>
+                    <Section id="resume-projects" className="flex flex-col w-full pb-10" delay={400}>
                         {/* Resume Section */}
-                        <div className="flex flex-col justify-start w-full lg:w-1/2 p-4">
+                        <div className="flex flex-col justify-start w-full p-4">
                             <div className="p-6 rounded-lg shadow-lg bg-white/10 backdrop-blur-md border border-white/30">
                                 <div className="flex flex-col sm:flex-row justify-between items-center m-4">
                                     <h3 className="text-3xl font-bold text-center">My Resume</h3>
@@ -201,19 +154,20 @@ export default function Home() {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="mt-4 flex justify-center">
-                                    <iframe
-                                        src="/Camilo_Alvarez_Resume.pdf#zoom=page-width"
-                                        className="w-full h-[80vh] rounded-lg bg-gray-900 bg-opacity-30 p-4"
-                                        title="Resume"
-                                        loading="lazy"
+                                <div className="mb-10 hidden overflow-hidden rounded-2xl border shadow-sm md:block md:mx-auto md:max-w-5xl md:aspect-[8.5/11] ">
+                                    <object
+                                        data="/Camilo_Alvarez_Resume.pdf#view=FitH"
+                                        type="application/pdf"
+                                        className="h-full w-full"
                                     />
                                 </div>
+
                             </div>
                         </div>
 
+                        <div className="w-[95%]  border-t border-white/30 my-10 mx-auto" />
                         {/* Projects Section */}
-                        <div className="flex flex-col w-full lg:w-1/2 p-4">
+                        <div className="flex flex-col w-full p-4">
                             <Projects/>
                             <Link
                                 href="/activity"
@@ -221,9 +175,6 @@ export default function Home() {
                             >
                                 For the full list of projects, check out my Activity page!
                             </Link>
-                            <p className="font-thin text-xs mt-1">
-                                please check it out i put so much work into it
-                            </p>
                         </div>
                     </Section>
                 </Element>

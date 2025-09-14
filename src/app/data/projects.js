@@ -1,10 +1,12 @@
 const projects = [{
     id: 1,
     title: 'Ladybug',
-    description: 'Utilizes LLM\'s and novel GUI data techniques to automate bug localization in your repositories. Integrates with GitHub to trigger analysis on new issues and provides bug localization results.',
+    description: 'Utilizes LLM\'s and novel GUI data techniques to automate bug localization in your repositories. Integrates with GitHub to trigger analysis on new issues and provides bug localization results. Published and presented Research tool paper IEEE ICSME 2025.',
     links: [{
         name: 'GitHub', url: 'https://github.com/LadyBugML/ladybug'
-    }],
+    }, {
+        name: 'Arxiv Paper', url: 'https://arxiv.org/abs/2508.05085'
+    }, ],
     images: ['/ladybug/ppt.png', '/ladybug/red_wing.png', '/ladybug/report.png'],
     highlighted: true,
     techStack: ['Flask', 'Python', 'Node.js', 'Probot'],
@@ -32,15 +34,6 @@ const projects = [{
     techStack: ['Python', 'React', 'FastAPI', 'ML', 'Ethereum', 'Mongodb'],
 }, {
     id: 4,
-    title: 'AStarFriends',
-    description: 'Effortlessly organize carpools with optimized routes. Create parties, assign drivers, and set destinations for a hassle-free ride.',
-    links: [{
-        name: 'GitHub', url: 'https://github.com/Noway-code/astarfriends'
-    }],
-    images: ['/astar/selectmap.png', '/astar/routes.png', '/astar/start.png'],
-    techStack: ['Python', 'React', 'FastAPI', 'Google OR-Tools', 'OSRM API', 'SQLite'],
-}, {
-    id: 5,
     title: 'Pulse Pal',
     description: 'Streamlines patient management and remote disease detection using rPPG. Awarded 3rd place at Hacklytics 24 Elevance Challenge.',
     links: [{
@@ -51,7 +44,7 @@ const projects = [{
     images: ['pulse/web.png', '/pulse/lockin.png', 'pulse/mobile.png'],
     techStack: ['Python', 'React', 'React Native', 'Flask', 'OpenCV', 'Jupyter'],
 }, {
-    id: 6,
+    id: 5,
     title: 'Town Trekkr',
     description: 'Engaging community game where you guess photo locations, build towns, and share snapshots. Dive into the adventure!',
     links: [{
@@ -60,7 +53,7 @@ const projects = [{
     images: ['/town/play.png', '/town/stats.png', '/town/webmenu.png'],
     techStack: ['React', 'Tailwind CSS', 'Node.js', 'Express', 'MongoDB'],
 }, {
-    id: 7,
+    id: 6,
     title: 'Portfolio',
     description: 'Explore my projects and blog in this portfolio, crafted with Next.js, Tailwind CSS, and Vercel.',
     links: [{
@@ -69,7 +62,7 @@ const projects = [{
     images: ['/port/obsidian.png', '/port/mirror.png'],
     techStack: ['React', 'Tailwind CSS', 'Next.js', 'Vercel', 'GitHub API', 'Obsidian', 'Cloudflare'],
 }, {
-    id: 8,
+    id: 7,
     title: 'Freelance - REV Group Orlando',
     description: 'Python Tkinter GUI that automates truck preparation, slashing task time from 10 minutes to under 1 minute and minimizing human error.',
     links: [{
@@ -78,16 +71,7 @@ const projects = [{
     images: ['/REV.png'],
     techStack: ['Python', 'Tkinter', 'Windows', 'Pyinstaller'],
 }, {
-    id: 9,
-    title: 'Phone Home',
-    description: 'Web-based contact manager with a space alien twist.',
-    links: [{
-        name: 'GitHub', url: 'https://github.com/Noway-code/PhoneHome'
-    }],
-    images: ['/phonehome/contacts.png', '/phonehome/login.png'],
-    techStack: ['Bootstrap', 'JS/HTML/CSS', 'Linux', 'Apache', 'MySQL', 'PHP', 'DigitalOcean'],
-}, {
-    id: 10,
+    id: 8,
     title: 'dotfiles',
     description: 'A curated collection of custom Linux dotfiles and automation scripts that boost system efficiency.',
     links: [{

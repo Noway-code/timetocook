@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import icons from "@/app/data/icons";
 
 export default function SkillsSection() {
@@ -10,12 +9,9 @@ export default function SkillsSection() {
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                     {icons.map((icon, index) => (
-                        <motion.div
+                        <div
                             key={icon.name}
-                            className="flex flex-col items-center justify-center p-4 bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            className="flex flex-col items-center justify-center p-4 bg-gray-800 rounded-xl shadow-md transition delay-50 duration-300 ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500"
                         >
                             <img
                                 src={icon.url}
@@ -25,7 +21,7 @@ export default function SkillsSection() {
                             <p className="mt-2 text-white text-lg font-semibold">
                                 {icon.name}
                             </p>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>
